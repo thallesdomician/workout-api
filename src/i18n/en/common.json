@@ -1,0 +1,18 @@
+{
+    "errors": {
+        "limitReached": "You have reached the limit of {{limit}} {{type}} on the {{plan}} plan.",
+        "unauthorized": "Unauthorized access.",
+        "notFound": "{{entity}} not found.",
+        "forbidden": "You cannot perform this action."
+    },
+    "labels": {
+        "workout": "workout",
+        "exercise": "exercise",
+        "template": "template",
+        "measurement": "measurement"
+    },
+    "messages": {
+        "syncSuccess": "Sync completed successfully.",
+        "profileUpdated": "Profile updated successfully."
+    }
+}
