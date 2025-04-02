@@ -10,8 +10,8 @@ import { TemplatesModule } from './modules/templates/templates.module';
 import { MeasurementsModule } from './modules/measurements/measurements.module';
 import { SyncModule } from './modules/sync/sync.module';
 import { LimitsModule } from './modules/limits/limits.module';
-import path from 'path';
 import { AcceptLanguageResolver, I18nModule } from 'nestjs-i18n';
+import * as path from 'path';
 
 @Module({
   imports: [
