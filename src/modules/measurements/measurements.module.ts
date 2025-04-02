@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MeasurementsService } from './measurements.service';
-import { MeasurementsController } from './measurements.controller';
 import { PrismaService } from '../../prisma/prisma.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { MeasurementsController } from './measurements.controller';
 
 @Module({
   controllers: [MeasurementsController],
