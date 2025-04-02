@@ -8,8 +8,9 @@ datasource db {
 }
 
 model User {
-  id        String            @id @default(cuid())
+  id        String            @id @default(uuid())
   email     String            @unique
+  password  String
   name      String?
   avatarUrl String?
   workouts  Workout[]
@@ -21,7 +22,7 @@ model User {
 }
 
 model Workout {
-  id                    String            @id @default(cuid())
+  id                    String            @id @default(uuid())
   userId                String
   user                  User              @relation(fields: [userId], references: [id])
   title                 String
@@ -43,7 +44,7 @@ enum WorkoutStatus {
 }
 
 model WorkoutExercise {
-  id                   String       @id @default(cuid())
+  id                   String       @id @default(uuid())
   workoutId            String
   workout              Workout      @relation(fields: [workoutId], references: [id])
   exerciseId           String
@@ -58,7 +59,7 @@ model WorkoutExercise {
 }
 
 model WorkoutSet {
-  id                String          @id @default(cuid())
+  id                String          @id @default(uuid())
   workoutExerciseId String
   workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id])
   weight            Float
@@ -68,7 +69,7 @@ model WorkoutSet {
 }
 
 model Exercise {
-  id                      String                    @id @default(cuid())
+  id                      String                    @id @default(uuid())
   userId                  String?
   user                    User?                     @relation(fields: [userId], references: [id])
   name                    String
@@ -81,7 +82,7 @@ model Exercise {
 }
 
 model WorkoutTemplate {
-  id        String                    @id @default(cuid())
+  id        String                    @id @default(uuid())
   userId    String
   user      User                      @relation(fields: [userId], references: [id])
   title     String
@@ -91,7 +92,7 @@ model WorkoutTemplate {
 }
 
 model WorkoutTemplateExercise {
-  id                String               @id @default(cuid())
+  id                String               @id @default(uuid())
   workoutTemplateId String
   workoutTemplate   WorkoutTemplate      @relation(fields: [workoutTemplateId], references: [id])
   exerciseId        String
@@ -101,7 +102,7 @@ model WorkoutTemplateExercise {
 }
 
 model WorkoutTemplateSet {
-  id                 String                  @id @default(cuid())
+  id                 String                  @id @default(uuid())
   templateExerciseId String
   templateExercise   WorkoutTemplateExercise @relation(fields: [templateExerciseId], references: [id])
   weight             Float
@@ -109,7 +110,7 @@ model WorkoutTemplateSet {
 }
 
 model Measurement {
-  id     String   @id @default(cuid())
+  id     String   @id @default(uuid())
   userId String
   user   User     @relation(fields: [userId], references: [id])
   type   String
