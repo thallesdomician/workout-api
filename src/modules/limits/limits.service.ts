@@ -1,5 +1,7 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { I18nService } from 'nestjs-i18n';
+import { translateType } from '../../common/helpers/translateType';
 
 export enum LimitType {
   EXERCISES = 'exercises',
@@ -17,15 +19,21 @@ export const FreeLimits: Record<LimitType, number> = {
 
 @Injectable()
 export class LimitsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private i18n: I18nService,
+  ) {}
 
   async check(userId: string, type: LimitType, plan: string = 'free') {
     const limit = plan === 'free' ? FreeLimits[type] : Infinity;
+    const translatedType = await translateType(this.i18n, type);
 
     const count = await this.countResources(userId, type);
     if (count >= limit) {
       throw new ForbiddenException(
-        `Você atingiu o limite de ${limit} ${type} no plano ${plan}.`,
+        this.i18n.t('common.errors.limitReached', {
+          args: { limit, type: translatedType, plan },
+        }),
       );
     }
   }
