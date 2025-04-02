@@ -9,8 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { TemplatesService } from './templates.service';
-import { CreateTemplateDto } from './dto/create-template.dto';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { CreateTemplateDto } from '../../common/dtos/templates/create-template.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('templates')
