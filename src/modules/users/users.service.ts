@@ -6,7 +6,7 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async getProfile(userId: string) {
-    return this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
         id: true,
@@ -16,6 +16,11 @@ export class UsersService {
         createdAt: true,
       },
     });
+
+    return {
+      ...user,
+      plan: 'free',
+    };
   }
 
   async updateProfile(
