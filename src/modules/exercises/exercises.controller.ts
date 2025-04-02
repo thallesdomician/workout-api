@@ -9,8 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
-import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { JwtAuthGuard } from '../auth/jwt.guard';
+import { CreateExerciseDto } from '../../common/dtos/exercises/create-exercise.dto';
 
 @Controller('exercises')
 export class ExercisesController {
