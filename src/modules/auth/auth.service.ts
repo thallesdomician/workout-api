@@ -16,7 +16,7 @@ export class AuthService {
       data: {
         email: data.email,
         name: data.name,
-        passwordHash: hashedPassword,
+        password: hashedPassword,
       },
     });
     const token = this.generateToken(user.id, user.email);
@@ -27,7 +27,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
-    if (!user || !(await bcrypt.compare(data.password, user.passwordHash))) {
+    if (!user || !(await bcrypt.compare(data.password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
     const token = this.generateToken(user.id, user.email);
