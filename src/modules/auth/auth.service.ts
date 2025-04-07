@@ -40,7 +40,15 @@ export class AuthService {
       },
     });
     const token = this.generateToken(user.id, user.email);
-    return { token, user: { id: user.id, email: user.email, name: user.name } };
+    return {
+      user: {
+        token,
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+      },
+    };
   }
 
   async login(data: { email: string; password: string }) {
@@ -54,8 +62,8 @@ export class AuthService {
     }
     const token = this.generateToken(user.id, user.email);
     return {
-      token,
       user: {
+        token,
         id: user.id,
         email: user.email,
         name: user.name,
