@@ -2,14 +2,16 @@
     "errors": {
         "limitReached": "Você atingiu o limite de {{limit}} {{type}} no plano {{plan}}.",
         "unauthorized": "Acesso não autorizado.",
-        "notFound": "{{entity}} não encontrado.",
-        "forbidden": "Você não pode realizar essa ação."
+        "notFound": "$t(common.labels.{entity}) não encontrado.",
+        "forbidden": "Você não pode realizar essa ação.",
+        "conflict": "$t(common.labels.{entity}) já existe."
     },
     "labels": {
         "workout": "treino",
         "exercise": "exercício",
         "template": "modelo",
-        "measurement": "medição"
+        "measurement": "medição",
+        "user": "usuário"
     },
     "messages": {
         "syncSuccess": "Sincronização concluída com sucesso.",
