@@ -70,13 +70,18 @@ model WorkoutSet {
 
 model Exercise {
   id                      String                    @id @default(uuid())
+  externalId              String?                   @unique
+  language                String                    @default("en")
   userId                  String?
   user                    User?                     @relation(fields: [userId], references: [id])
   name                    String
   bodyPart                String
-  category                String
-  instructions            String?
+  equipment               String
+  target                  String
+  secondaryMuscles        String[]
+  instructions            String[]
   createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
   WorkoutExercise         WorkoutExercise[]
   WorkoutTemplateExercise WorkoutTemplateExercise[]
 }
