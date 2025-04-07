@@ -1,29 +1,17 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-
-export enum BodyPart {
-  CHEST = 'CHEST',
-  BACK = 'BACK',
-  SHOULDERS = 'SHOULDERS',
-  BICEPS = 'BICEPS',
-  TRICEPS = 'TRICEPS',
-  LEGS = 'LEGS',
-  ABS = 'ABS',
-  CARDIO = 'CARDIO',
-  OTHER = 'OTHER',
-}
-
-export enum ExerciseCategory {
-  BARBELL = 'BARBELL',
-  DUMBBELL = 'DUMBBELL',
-  MACHINE = 'MACHINE',
-  BODYWEIGHT = 'BODYWEIGHT',
-  CABLE = 'CABLE',
-  ASSISTED = 'ASSISTED',
-  CARDIO = 'CARDIO',
-  OTHER = 'OTHER',
-}
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { BodyPart, EquipmentType } from '../../enums/exercises';
 
 export class CreateExerciseDto {
+  @IsOptional()
+  @IsString()
+  externalId?: string;
+
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -31,10 +19,20 @@ export class CreateExerciseDto {
   @IsEnum(BodyPart)
   bodyPart: BodyPart;
 
-  @IsEnum(ExerciseCategory)
-  category: ExerciseCategory;
+  @IsEnum(EquipmentType)
+  equipment: EquipmentType;
 
-  @IsOptional()
   @IsString()
-  instructions?: string;
+  @IsNotEmpty()
+  target: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  secondaryMuscles?: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  instructions?: string[];
 }
