@@ -4,7 +4,8 @@
         "unauthorized": "Unauthorized access.",
         "notFound": "$t(common.labels.{entity}) not found.",
         "forbidden": "You cannot perform this action.",
-        "conflict": "$t(common.labels.{entity}) already exists."
+        "conflict": "$t(common.labels.{entity}) already exists.",
+        "invalidCredentials": "Invalid credentials."
     },
     "labels": {
         "workout": "workout",
