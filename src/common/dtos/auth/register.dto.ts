@@ -16,7 +16,7 @@ export class RegisterDto {
   @IsNotEmpty()
   @IsString()
   @Matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&<>()\/\\\[\]~-])[A-Za-z\d@$!%*?&<>()\/\\\[\]~-]{8,}$/,
     {
       message:
         'Password too weak. It must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
