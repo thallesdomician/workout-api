@@ -17,49 +17,19 @@ export class SyncService {
   ) {}
 
   async getBootstrapData(userId: string) {
-    const [exercises, templates, measurements, workouts] = await Promise.all([
+    const [exercises] = await Promise.all([
       this.prisma.exercise.findMany({
         where: {
           OR: [{ userId }, { userId: null }],
         },
         orderBy: { name: 'asc' },
       }),
-      this.prisma.workoutTemplate.findMany({
-        where: {
-          OR: [{ userId }, { userId: null }],
-        },
-        include: {
-          exercises: {
-            include: {
-              sets: true,
-              exercise: true,
-            },
-          },
-        },
-        orderBy: { createdAt: 'desc' },
-      }),
-      this.prisma.measurement.findMany({
-        where: { userId },
-        orderBy: { date: 'desc' },
-      }),
-      this.prisma.workout.findMany({
-        where: { userId },
-        include: {
-          exercises: {
-            include: {
-              sets: true,
-            },
-          },
-        },
-        orderBy: { createdAt: 'desc' },
-      }),
     ]);
+
+    console.log('🐛 ~ getBootstrapData ~ exercises:', exercises.length);
 
     return {
       exercises,
-      templates,
-      measurements,
-      workouts,
     };
   }
 

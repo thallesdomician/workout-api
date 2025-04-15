@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { SyncService } from './sync.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { SyncPushDto } from '../../common/dtos/sync/sync-push.dto';
@@ -8,7 +15,7 @@ import { SyncPushDto } from '../../common/dtos/sync/sync-push.dto';
 export class SyncController {
   constructor(private readonly syncService: SyncService) {}
 
-  @Post('bootstrap')
+  @Get('bootstrap')
   async bootstrap(@Request() req) {
     const userId = req.user.userId;
     return this.syncService.getBootstrapData(userId);
