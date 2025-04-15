@@ -12,7 +12,7 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-minio:
+  minio:
     image: minio/minio:latest
     container_name: minio_container
     environment:
