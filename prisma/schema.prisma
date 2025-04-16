@@ -62,10 +62,47 @@ model WorkoutSet {
   id                String          @id @default(uuid())
   workoutExerciseId String
   workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id])
-  weight            Float
-  reps              Int
   isValid           Boolean         @default(true)
   createdAt         DateTime        @default(now())
+
+  data WorkoutSetData?
+}
+
+model WorkoutSetData {
+  id   String         @id
+  type WorkoutSetType
+  set  WorkoutSet     @relation(fields: [id], references: [id])
+
+  repsSet     RepsSet?
+  timeSet     TimeSet?
+  distanceSet DistanceSet?
+  rpeSet      RpeSet?
+}
+
+model RepsSet {
+  id     String         @id
+  data   WorkoutSetData @relation(fields: [id], references: [id])
+  reps   Int
+  weight Float?
+}
+
+model TimeSet {
+  id              String         @id
+  data            WorkoutSetData @relation(fields: [id], references: [id])
+  durationSeconds Int
+}
+
+model DistanceSet {
+  id             String         @id
+  data           WorkoutSetData @relation(fields: [id], references: [id])
+  distanceMeters Float
+}
+
+model RpeSet {
+  id    String         @id
+  data  WorkoutSetData @relation(fields: [id], references: [id])
+  rpe   Int
+  notes String?
 }
 
 model Exercise {
@@ -219,4 +256,11 @@ enum MuscleGroup {
   WRIST_EXTENSORS       @map("wrist extensors")
   WRIST_FLEXORS         @map("wrist flexors")
   WRISTS                @map("wrists")
+}
+
+enum WorkoutSetType {
+  REPS
+  TIME
+  DISTANCE
+  RPE
 }
