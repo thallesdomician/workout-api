@@ -75,10 +75,10 @@ model Exercise {
   userId                  String?
   user                    User?                     @relation(fields: [userId], references: [id])
   name                    String
-  bodyPart                String
-  equipment               String
-  target                  String
-  secondaryMuscles        String[]
+  bodyPart                BodyPart
+  equipment               EquipmentType
+  target                  MuscleGroup
+  secondaryMuscles        MuscleGroup[]
   instructions            String[]
   createdAt               DateTime                  @default(now())
   updatedAt               DateTime                  @updatedAt
@@ -122,4 +122,101 @@ model Measurement {
   value  Float
   unit   String
   date   DateTime
+}
+
+enum EquipmentType {
+  ASSISTED             @map("assisted")
+  BAND                 @map("band")
+  BARBELL              @map("barbell")
+  BODY_WEIGHT          @map("body weight")
+  BOSU_BALL            @map("bosu ball")
+  CABLE                @map("cable")
+  DUMBBELL             @map("dumbbell")
+  ELLIPTICAL_MACHINE   @map("elliptical machine")
+  EZ_BARBELL           @map("ez barbell")
+  HAMMER               @map("hammer")
+  KETTLEBELL           @map("kettlebell")
+  LEVERAGE_MACHINE     @map("leverage machine")
+  MEDICINE_BALL        @map("medicine ball")
+  OLYMPIC_BARBELL      @map("olympic barbell")
+  RESISTANCE_BAND      @map("resistance band")
+  ROLLER               @map("roller")
+  ROPE                 @map("rope")
+  SKIERG_MACHINE       @map("skierg machine")
+  SLED_MACHINE         @map("sled machine")
+  SMITH_MACHINE        @map("smith machine")
+  STABILITY_BALL       @map("stability ball")
+  STATIONARY_BIKE      @map("stationary bike")
+  STEPMILL_MACHINE     @map("stepmill machine")
+  TIRE                 @map("tire")
+  TRAP_BAR             @map("trap bar")
+  UPPER_BODY_ERGOMETER @map("upper body ergometer")
+  WEIGHTED             @map("weighted")
+  WHEEL_ROLLER         @map("wheel roller")
+}
+
+enum BodyPart {
+  WAIST      @map("waist")
+  UPPER_LEGS @map("upper legs")
+  BACK       @map("back")
+  LOWER_LEGS @map("lower legs")
+  CHEST      @map("chest")
+  UPPER_ARMS @map("upper arms")
+  CARDIO     @map("cardio")
+  SHOULDERS  @map("shoulders")
+  LOWER_ARMS @map("lower arms")
+  NECK       @map("neck")
+}
+
+enum MuscleGroup {
+  ABDOMINALS            @map("abdominals")
+  ABDUCTORS             @map("abductors")
+  ABS                   @map("abs")
+  ADDUCTORS             @map("adductors")
+  ANKLE_STABILIZERS     @map("ankle stabilizers")
+  ANKLES                @map("ankles")
+  BACK                  @map("back")
+  BICEPS                @map("biceps")
+  BRACHIALIS            @map("brachialis")
+  CALVES                @map("calves")
+  CARDIOVASCULAR_SYSTEM @map("cardiovascular system")
+  CHEST                 @map("chest")
+  CORE                  @map("core")
+  DELTOIDS              @map("deltoids")
+  DELTS                 @map("delts")
+  FEET                  @map("feet")
+  FOREARMS              @map("forearms")
+  GLUTES                @map("glutes")
+  GRIP_MUSCLES          @map("grip muscles")
+  GROIN                 @map("groin")
+  HAMSTRINGS            @map("hamstrings")
+  HANDS                 @map("hands")
+  HIP_FLEXORS           @map("hip flexors")
+  INNER_THIGHS          @map("inner thighs")
+  LATISSIMUS_DORSI      @map("latissimus dorsi")
+  LATS                  @map("lats")
+  LEVATOR_SCAPULAE      @map("levator scapulae")
+  LOWER_ABS             @map("lower abs")
+  LOWER_BACK            @map("lower back")
+  OBLIQUES              @map("obliques")
+  PECTORALS             @map("pectorals")
+  QUADRICEPS            @map("quadriceps")
+  QUADS                 @map("quads")
+  REAR_DELTOIDS         @map("rear deltoids")
+  RHOMBOIDS             @map("rhomboids")
+  ROTATOR_CUFF          @map("rotator cuff")
+  SERRATUS_ANTERIOR     @map("serratus anterior")
+  SHINS                 @map("shins")
+  SHOULDERS             @map("shoulders")
+  SOLEUS                @map("soleus")
+  SPINE                 @map("spine")
+  STERNOCLEIDOMASTOID   @map("sternocleidomastoid")
+  TRAPEZIUS             @map("trapezius")
+  TRAPS                 @map("traps")
+  TRICEPS               @map("triceps")
+  UPPER_BACK            @map("upper back")
+  UPPER_CHEST           @map("upper chest")
+  WRIST_EXTENSORS       @map("wrist extensors")
+  WRIST_FLEXORS         @map("wrist flexors")
+  WRISTS                @map("wrists")
 }

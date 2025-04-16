@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, $Enums } from '@prisma/client';
 import * as fs from 'fs';
 
 const prisma = new PrismaClient();
@@ -18,10 +18,19 @@ async function main() {
         create: {
           externalId: item.id,
           name: item.name,
-          bodyPart: item.bodyPart,
-          equipment: item.equipment,
-          target: item.target,
-          secondaryMuscles: item.secondaryMuscles,
+          bodyPart: (item.bodyPart as string)
+            .toUpperCase()
+            .replaceAll(' ', '_') as $Enums.BodyPart,
+          equipment: (item.equipment as string)
+            .toUpperCase()
+            .replaceAll(' ', '_') as $Enums.EquipmentType,
+          target: (item.target as string)
+            .toUpperCase()
+            .replaceAll(' ', '_') as $Enums.MuscleGroup,
+          secondaryMuscles: item.secondaryMuscles.map(
+            (muscle: string) =>
+              muscle.toUpperCase().replaceAll(' ', '_') as $Enums.MuscleGroup,
+          ),
           instructions: item.instructions,
         },
       });
