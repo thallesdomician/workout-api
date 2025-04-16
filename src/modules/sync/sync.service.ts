@@ -23,10 +23,11 @@ export class SyncService {
           OR: [{ userId }, { userId: null }],
         },
         orderBy: { name: 'asc' },
+        include: {
+          ExerciseMedia: {},
+        },
       }),
     ]);
-
-    console.log('🐛 ~ getBootstrapData ~ exercises:', exercises.length);
 
     return {
       exercises,

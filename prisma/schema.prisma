@@ -76,7 +76,7 @@ model WorkoutSet {
 
 model WorkoutSetData {
   id   String         @id
-  type WorkoutSetType
+  type WorkoutSetType @default(REPS)
   set  WorkoutSet     @relation(fields: [id], references: [id])
 
   repsSet     RepsSet?
