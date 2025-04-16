@@ -1,3 +1,7 @@
+// generator dbml {
+//   provider = "prisma-dbml-generator"
+// }
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -122,6 +126,21 @@ model Exercise {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   WorkoutExercise  WorkoutExercise[]
+  ExerciseMedia    ExerciseMedia[]
+}
+
+model ExerciseMedia {
+  id         String    @id @default(uuid())
+  exercise   Exercise  @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+  url        String
+  mediaType  MediaType
+}
+
+enum MediaType {
+  GIF
+  IMAGE
+  YOUTUBE_VIDEO
 }
 
 model MeasurementEntry {
