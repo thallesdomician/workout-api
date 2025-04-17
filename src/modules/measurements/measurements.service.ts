@@ -52,18 +52,18 @@ export class MeasurementsService {
   }
 
   async delete(userId: string, id: string) {
-    const measurement = await this.prisma.measurementEntry.findUnique({
+    const measurementEntry = await this.prisma.measurementEntry.findUnique({
       where: { id },
     });
 
-    if (!measurement) {
+    if (!measurementEntry) {
       throw new NotFoundException('Medição não encontrada.');
     }
 
-    if (measurement.userId !== userId) {
+    if (measurementEntry.userId !== userId) {
       throw new ForbiddenException('Você não pode excluir essa medição.');
     }
 
-    return this.prisma.measurement.delete({ where: { id } });
+    return this.prisma.measurementEntry.delete({ where: { id } });
   }
 }
