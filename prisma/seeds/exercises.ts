@@ -51,7 +51,7 @@ async function main() {
         try {
           gifStream = fs.createReadStream(`./prisma/seeds/data/${gifPath}`);
         } catch (error) {
-          console.error(`Nao achou o arquivo ${gifPath}`);
+          console.error(`😥 File not found: ${gifPath}`);
         }
         if (gifStream) {
           const gifName = `gifs/${item.id}.gif`;
@@ -74,7 +74,7 @@ async function main() {
         }
       }
     } catch (error) {
-      console.error(`Error seeding exercise ${item.id}:`, error);
+      console.error(`🚫 Error seeding exercise ${item.id}:`, error);
     }
   }
 
