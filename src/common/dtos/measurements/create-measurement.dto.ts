@@ -1,27 +1,15 @@
-import { IsIn, IsNumber, IsDateString, IsEnum } from 'class-validator';
-
-export enum MeasurementType {
-  WEIGHT = 'weight',
-  WAIST = 'waist',
-  CHEST = 'chest',
-  BICEPS = 'biceps',
-  HIPS = 'hips',
-  SHOULDERS = 'shoulders',
-  LEGS = 'legs',
-  CALVES = 'calves',
-  FOREARM = 'forearm',
-}
+import { IsNumber, IsString, IsDateString, IsUUID } from 'class-validator';
 
 export class CreateMeasurementDto {
-  @IsEnum(MeasurementType)
-  type: MeasurementType;
+  @IsUUID()
+  measurementId: string;
 
   @IsNumber()
   value: number;
 
-  @IsIn(['kg', 'cm', 'mm', 'in'])
+  @IsString()
   unit: string;
 
   @IsDateString()
-  date: string; // ISO format
+  date: string;
 }

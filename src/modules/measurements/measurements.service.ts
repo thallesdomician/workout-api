@@ -11,32 +11,48 @@ export class MeasurementsService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(userId: string) {
-    return this.prisma.measurement.findMany({
+    return this.prisma.measurementEntry.findMany({
       where: { userId },
       orderBy: { date: 'desc' },
+      include: {
+        measurement: {
+          select: {
+            unit: true,
+            name: true,
+          },
+        },
+      },
     });
   }
 
   async findAllLast(userId: string) {
-    return this.prisma.measurement.findFirst({
+    return this.prisma.measurementEntry.findFirst({
       where: { userId },
-      distinct: ['type'],
+      distinct: ['measurementId'],
       orderBy: { date: 'desc' },
+      include: {
+        measurement: {
+          select: {
+            unit: true,
+            name: true,
+          },
+        },
+      },
     });
   }
 
   async create(userId: string, dto: CreateMeasurementDto) {
-    return this.prisma.measurement.create({
+    return this.prisma.measurementEntry.create({
       data: {
         ...dto,
-        userId,
         date: new Date(dto.date),
+        userId,
       },
     });
   }
 
   async delete(userId: string, id: string) {
-    const measurement = await this.prisma.measurement.findUnique({
+    const measurement = await this.prisma.measurementEntry.findUnique({
       where: { id },
     });
 

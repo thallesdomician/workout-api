@@ -24,6 +24,21 @@ model User {
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
   WorkoutFolder      WorkoutFolder[]
+  UserSettings       UserSettings?
+}
+
+model UserSettings {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  weightUnit   BodyMeasurementUnit @default(KG)
+  distanceUnit BodyMeasurementUnit @default(M)
+  sizeUnit     BodyMeasurementUnit @default(CM)
+  appTheme     AppTheme            @default(SYSTEM)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Workout {
@@ -150,18 +165,16 @@ model MeasurementEntry {
   measurementId String
   measurement   Measurement @relation(fields: [measurementId], references: [id])
   value         Float
-  unit          String
   date          DateTime
 }
 
 model Measurement {
-  id        String             @id @default(uuid())
-  userId    String? // null para padrões do sistema
-  user      User?              @relation(fields: [userId], references: [id])
-  name      String
-  unit      String
-  isDefault Boolean            @default(false)
-  entries   MeasurementEntry[]
+  id      String              @id @default(uuid())
+  userId  String? // null para padrões do sistema
+  user    User?               @relation(fields: [userId], references: [id])
+  name    String
+  unit    BodyMeasurementUnit
+  entries MeasurementEntry[]
 }
 
 model WorkoutFolder {
@@ -276,4 +289,20 @@ enum WorkoutSetType {
   TIME
   DISTANCE
   RPE
+}
+
+enum BodyMeasurementUnit {
+  KG // Peso em quilogramas
+  LBS // Peso em libras
+  CM // Comprimento em centímetros (ex.: altura, circunferências)
+  M // Comprimento em metros
+  INCH // Comprimento em polegadas
+  FT // Comprimento em pés
+}
+
+enum AppTheme {
+  LIGHT
+  DARK
+  SYSTEM
+  NEW
 }
