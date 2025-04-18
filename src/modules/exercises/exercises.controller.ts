@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
-import { CreateExerciseDto } from '../../common/dtos/exercises/create-exercise.dto';
 
 @Controller('exercises')
 export class ExercisesController {
@@ -24,11 +23,11 @@ export class ExercisesController {
   }
 
   // Cria exercício customizado (privado)
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  async create(@Request() req, @Body() dto: CreateExerciseDto) {
-    return this.exercisesService.create(req.user.userId, dto);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post()
+  // async create(@Request() req, @Body() dto: CreateExerciseDto) {
+  //   return this.exercisesService.create(req.user.userId, dto);
+  // }
 
   // Remove exercício customizado (privado)
   @UseGuards(JwtAuthGuard)

@@ -23,6 +23,7 @@ model User {
   customMeasurements Measurement[]
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
+  deletedAt          DateTime?
   WorkoutFolder      WorkoutFolder[]
   UserSettings       UserSettings?
 }
@@ -52,10 +53,12 @@ model Workout {
   duration   Int?
   status     WorkoutStatus     @default(IN_PROGRESS)
   exercises  WorkoutExercise[]
-  createdAt  DateTime          @default(now())
   isArchived Boolean           @default(false)
   folderId   String?
   folder     WorkoutFolder?    @relation(fields: [folderId], references: [id])
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  deletedAt  DateTime?
 }
 
 enum WorkoutStatus {
@@ -77,6 +80,8 @@ model WorkoutExercise {
   instructionsSnapshot String?
   sets                 WorkoutSet[]
   createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  deletedAt            DateTime?
 }
 
 model WorkoutSet {
@@ -84,9 +89,12 @@ model WorkoutSet {
   workoutExerciseId String
   workoutExercise   WorkoutExercise @relation(fields: [workoutExerciseId], references: [id])
   isValid           Boolean         @default(true)
+  order             Int
+  notes             String?
+  data              WorkoutSetData?
   createdAt         DateTime        @default(now())
-
-  data WorkoutSetData?
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
 }
 
 model WorkoutSetData {
@@ -138,10 +146,11 @@ model Exercise {
   target           MuscleGroup
   secondaryMuscles MuscleGroup[]
   instructions     String[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
   WorkoutExercise  WorkoutExercise[]
   ExerciseMedia    ExerciseMedia[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  deletedAt        DateTime?
 }
 
 model ExerciseMedia {
@@ -150,6 +159,9 @@ model ExerciseMedia {
   exerciseId String
   url        String
   mediaType  MediaType
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
 }
 
 enum MediaType {
@@ -166,15 +178,20 @@ model MeasurementEntry {
   measurement   Measurement @relation(fields: [measurementId], references: [id])
   value         Float
   date          DateTime
+  createdAt     DateTime    @default(now())
+  deletedAt     DateTime?
 }
 
 model Measurement {
-  id      String              @id @default(uuid())
-  userId  String? // null para padrões do sistema
-  user    User?               @relation(fields: [userId], references: [id])
-  name    String
-  unit    BodyMeasurementUnit
-  entries MeasurementEntry[]
+  id        String              @id @default(uuid())
+  userId    String? // null para padrões do sistema
+  user      User?               @relation(fields: [userId], references: [id])
+  name      String
+  unit      BodyMeasurementUnit
+  entries   MeasurementEntry[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  deletedAt DateTime?
 }
 
 model WorkoutFolder {
@@ -185,6 +202,7 @@ model WorkoutFolder {
   workouts  Workout[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 enum EquipmentType {

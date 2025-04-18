@@ -4,7 +4,6 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateExerciseDto } from '../../common/dtos/exercises/create-exercise.dto';
 
 @Injectable()
 export class ExercisesService {
@@ -19,17 +18,20 @@ export class ExercisesService {
         ],
       },
       orderBy: { name: 'asc' },
-    });
-  }
-
-  async create(userId: string, dto: CreateExerciseDto) {
-    return this.prisma.exercise.create({
-      data: {
-        ...dto,
-        userId,
+      include: {
+        ExerciseMedia: true, // inclui a mídia associada ao exercício
       },
     });
   }
+
+  // async create(userId: string, dto: CreateExerciseDto) {
+  //   return this.prisma.exercise.create({
+  //     data: {
+  //       ...dto,
+  //       userId,
+  //     },
+  //   });
+  // }
 
   async delete(userId: string, id: string) {
     const exercise = await this.prisma.exercise.findUnique({ where: { id } });

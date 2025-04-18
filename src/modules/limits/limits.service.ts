@@ -46,31 +46,6 @@ export class LimitsService {
       case LimitType.EXERCISES:
         return this.prisma.exercise.count({ where: { userId } });
 
-      case LimitType.TEMPLATES:
-        return this.prisma.workoutTemplate.count({ where: { userId } });
-
-      case LimitType.WORKOUTS:
-        const firstDayOfMonth = new Date();
-        firstDayOfMonth.setDate(1);
-        firstDayOfMonth.setHours(0, 0, 0, 0);
-        return this.prisma.workout.count({
-          where: {
-            userId,
-            createdAt: { gte: firstDayOfMonth },
-          },
-        });
-
-      case LimitType.MEASUREMENTS:
-        const startOfMonth = new Date();
-        startOfMonth.setDate(1);
-        startOfMonth.setHours(0, 0, 0, 0);
-        return this.prisma.measurement.count({
-          where: {
-            userId,
-            date: { gte: startOfMonth },
-          },
-        });
-
       default:
         return 0;
     }
